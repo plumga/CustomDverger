@@ -46,6 +46,7 @@ namespace CustomDverger
 
         }
 
+        //handy func to build a container
         private void CreateInventory(GameObject go, int height, int width)
         {
             if (go.GetComponent<Container>() != null) return;
@@ -56,36 +57,31 @@ namespace CustomDverger
             cn.m_rootObjectOverride = Player.m_localPlayer.gameObject.GetComponent<ZNetView>();
         }
 
-        private void Update()
+      /*  private void Update()
         {
             if (Player.m_localPlayer == null || ZNetScene.instance == null )
                 return;
-            if (Player.m_localPlayer.IsItemEquiped(ZNetScene.instance.GetPrefab("dvergername").gameObject
-                .GetComponent<ItemDrop>().m_itemData))
+            var item = Player.m_localPlayer.GetInventory().GetEquipedtems().Exists(i => i.m_dropPrefab?.name == "$customdvergerblackearly");
+            if (item == true)
             {
-                var light = ZNetScene.instance.GetPrefab("dvergernamegoeshere").GetComponent<Light>();
-                
-                light.color = Color.green;//POC to show you can alter color on the sceneupdate when the item is euqipped
-                light.useColorTemperature = true;
-                light.colorTemperature = 123;
+                Jotunn.Logger.LogInfo("I found the circlet I am toggling the light");
+                var playerverger = Player.m_localPlayer.GetInventory().GetEquipedtems().Find(i => i.m_dropPrefab?.name == "$customdvergerblackearly");
+                var light = playerverger.m_dropPrefab.gameObject.GetComponentInChildren<Light>();
+                if (light != null)
+                {
+                    light.color = Color.magenta;
+                }
+                else
+                {
+                    Jotunn.Logger.LogDebug("Couldnt find the component holding the light");
+                }
             }
-        }
+        }*/
         private void LoadAssets()
         {
             dvergers = AssetUtils.LoadAssetBundleFromResources("dvergerasset", typeof(CustomDverger).Assembly);
 
         }
-
-
-        //  [HarmonyLib.HarmonyPatch(typeof(ZNetScene), "Awake")]
-        //  [HarmonyLib.HarmonyPostfix]
-        // static void PrefabPostfix(ref ZNetScene __instance)
-        // {
-        //   GameObject wishbonePrefab = __instance.GetPrefab("Wishbone");
-        // CustomSlotManager.ApplyCustomSlotItem(wishbonePrefab, "wishbone");
-        //}
-
-        ///I give up on custom slots
 
 
         private void LoadYellowE()
@@ -334,13 +330,12 @@ namespace CustomDverger
 
 
         [HarmonyPatch(typeof(ZNetScene), "Awake")]
-        static private class Prefabpatch
+        [HarmonyPostfix]
+        static void PrefabPostfix(ref ZNetScene __instance)
         {
-            static void Postfix(ref ZNetScene __instance)
-            {
-                GameObject dvergerYellow = __instance.GetPrefab("$customdvergeryellow");
-                CustomSlotManager.ApplyCustomSlotItem(dvergerYellow, "$customdvergeryellow");
-            }
+                GameObject dvergerYellow = __instance.GetPrefab("$customdvergerblackearly");
+                CustomSlotManager.ApplyCustomSlotItem(dvergerYellow, "Dverger");
+            
         }
 
         // to here 
