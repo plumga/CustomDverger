@@ -4,6 +4,7 @@
 // File:    JotunnModStub.cs
 // Project: JotunnModStub
 
+using System;
 using BepInEx;
 using UnityEngine;
 using BepInEx.Configuration;
@@ -47,6 +48,20 @@ namespace CustomDverger
         }
 
 
+        private void Update()
+        {
+            if (Player.m_localPlayer == null || ZNetScene.instance == null )
+                return;
+            if (Player.m_localPlayer.IsItemEquiped(ZNetScene.instance.GetPrefab("dvergername").gameObject
+                .GetComponent<ItemDrop>().m_itemData));
+            {
+                var light = ZNetScene.instance.GetPrefab("dvergernamegoeshere").GetComponent<Light>();
+                String.Contais("")
+                light.color = Color.green;//POC to show you can alter color on the sceneupdate when the item is euqipped
+                light.useColorTemperature = true;
+                light.colorTemperature = 123;
+            }
+        }
         private void LoadAssets()
         {
             dvergers = AssetUtils.LoadAssetBundleFromResources("dvergerasset", typeof(CustomDverger).Assembly);
