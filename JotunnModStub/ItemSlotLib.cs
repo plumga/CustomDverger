@@ -46,37 +46,6 @@ namespace CustomDverger
 
         }
 
-        //handy func to build a container
-        private void CreateInventory(GameObject go, int height, int width)
-        {
-            if (go.GetComponent<Container>() != null) return;
-            var cn = go.AddComponent<Container>();
-            cn.m_height = height;
-            cn.m_width = width;
-            //this might not work I dont know for sure about the rootobjoverride
-            cn.m_rootObjectOverride = Player.m_localPlayer.gameObject.GetComponent<ZNetView>();
-        }
-
-      /*  private void Update()
-        {
-            if (Player.m_localPlayer == null || ZNetScene.instance == null )
-                return;
-            var item = Player.m_localPlayer.GetInventory().GetEquipedtems().Exists(i => i.m_dropPrefab?.name == "$customdvergerblackearly");
-            if (item == true)
-            {
-                Jotunn.Logger.LogInfo("I found the circlet I am toggling the light");
-                var playerverger = Player.m_localPlayer.GetInventory().GetEquipedtems().Find(i => i.m_dropPrefab?.name == "$customdvergerblackearly");
-                var light = playerverger.m_dropPrefab.gameObject.GetComponentInChildren<Light>();
-                if (light != null)
-                {
-                    light.color = Color.magenta;
-                }
-                else
-                {
-                    Jotunn.Logger.LogDebug("Couldnt find the component holding the light");
-                }
-            }
-        }*/
         private void LoadAssets()
         {
             dvergers = AssetUtils.LoadAssetBundleFromResources("dvergerasset", typeof(ItemSlotLib).Assembly);
@@ -86,7 +55,7 @@ namespace CustomDverger
 
         private void LoadYellowE()
         {
-            //    CustomSlotManager.ApplyCustomSlotItem(blackfab, "wishbone");
+            
             ItemManager.Instance.AddItem(new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergeryellowearly"), fixReference: true,
                 new ItemConfig
                 {
@@ -105,7 +74,7 @@ namespace CustomDverger
 
         private void LoadBlackE()
         {
-            //    CustomSlotManager.ApplyCustomSlotItem(blackfab, "wishbone");
+           
             ItemManager.Instance.AddItem(new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergerblackearly"), fixReference: true,
                 new ItemConfig
                 {
@@ -125,7 +94,7 @@ namespace CustomDverger
 
         private void LoadBlack()
         {
-            //    CustomSlotManager.ApplyCustomSlotItem(blackfab, "wishbone");
+            
             ItemManager.Instance.AddItem(new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergerblack"), fixReference: true,
                 new ItemConfig
                 {
@@ -213,7 +182,7 @@ namespace CustomDverger
 
         private void LoadPurple()
         {
-            //       CustomSlotManager.ApplyCustomSlotItem(purplefab, "$customdvergerpurple");
+            
             var purple = new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergerpurple"), fixReference: true,
                 new ItemConfig
                 {
@@ -237,7 +206,7 @@ namespace CustomDverger
 
         private void LoadRed()
         {
-            //       CustomSlotManager.ApplyCustomSlotItem(redfab, "$customdvergerred");
+            
             var red = new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergerred"), fixReference: true,
                 new ItemConfig
                 {
@@ -261,7 +230,7 @@ namespace CustomDverger
 
         private void LoadWhite()
         {
-            //       CustomSlotManager.ApplyCustomSlotItem(whitefab, "$customdvergerwhite");
+            
             var white = new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergerwhite"), fixReference: true,
                 new ItemConfig
                 {
@@ -339,6 +308,16 @@ namespace CustomDverger
                 GameObject dvergerblack = __instance.GetPrefab("$customdvergerblackearly");
             ItemSlotLib.ApplyCustomSlotItem(dvergerblack, "Dverger");
             
+                GameObject dvergerred = __instance.GetPrefab("$customdvergerred");
+            ItemSlotLib.ApplyCustomSlotItem(dvergerred, "Dverger");
+            
+                GameObject dvergerwhite= __instance.GetPrefab("$customdvergerwhite");
+            ItemSlotLib.ApplyCustomSlotItem(dvergerwhite, "Dverger");
+            
+                GameObject dvergerpurple = __instance.GetPrefab("$customdvergerpurple");
+            ItemSlotLib.ApplyCustomSlotItem(dvergerblack, "Dverger");
+    
+
         }
 
         // to here 
