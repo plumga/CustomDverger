@@ -112,8 +112,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SlotLib\CustomSlotItem.cs" />
+    <Compile Include="SlotLib\ItemSlotLib.cs" />
+    <Compile Include="SlotLib\Patches.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
-    <Compile Include="CustomDverger.cs" />
+    <Compile Include="ItemSlotLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

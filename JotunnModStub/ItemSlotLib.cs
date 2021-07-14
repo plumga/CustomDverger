@@ -42,7 +42,7 @@ namespace CustomDverger
             LoadRed();
             LoadWhite();
             LoadYellow();
-            Harmony.CreateAndPatchAll(typeof(CustomDverger).Assembly);
+            Harmony.CreateAndPatchAll(typeof(ItemSlotLib).Assembly);
 
         }
 
@@ -79,7 +79,7 @@ namespace CustomDverger
         }*/
         private void LoadAssets()
         {
-            dvergers = AssetUtils.LoadAssetBundleFromResources("dvergerasset", typeof(CustomDverger).Assembly);
+            dvergers = AssetUtils.LoadAssetBundleFromResources("dvergerasset", typeof(ItemSlotLib).Assembly);
 
         }
 
@@ -334,10 +334,10 @@ namespace CustomDverger
         static void PrefabPostfix(ref ZNetScene __instance)
         {
                 GameObject dvergerYellow = __instance.GetPrefab("$customdvergeryellowearly");
-                CustomSlotManager.ApplyCustomSlotItem(dvergerYellow, "Dverger");
+            ItemSlotLib.ApplyCustomSlotItem(dvergerYellow, "Dverger");
 
                 GameObject dvergerblack = __instance.GetPrefab("$customdvergerblackearly");
-                CustomSlotManager.ApplyCustomSlotItem(dvergerblack, "Dverger");
+            ItemSlotLib.ApplyCustomSlotItem(dvergerblack, "Dverger");
             
         }
 
