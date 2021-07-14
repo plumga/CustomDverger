@@ -13,7 +13,6 @@ using Jotunn.Configs;
 using Jotunn.Managers;
 using Jotunn.Entities;
 using Jotunn.Utils;
-using CustomSlotItemLib;
 
 namespace CustomDverger
 {
@@ -26,7 +25,7 @@ namespace CustomDverger
         public const string PluginVersion = "0.0.1";
         private AssetBundle dvergers;
 
-
+        static private Harmony _harmony;
         private void Awake()
         {
 
@@ -42,7 +41,7 @@ namespace CustomDverger
             LoadRed();
             LoadWhite();
             LoadYellow();
-            Harmony.CreateAndPatchAll(typeof(ItemSlotLib).Assembly);
+            _harmony.PatchAll();
 
         }
 
