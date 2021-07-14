@@ -11,7 +11,8 @@ using Jotunn.Configs;
 using Jotunn.Managers;
 using Jotunn.Entities;
 using Jotunn.Utils;
-//using CustomSlotItemLib;
+using CustomSlotItemLib;
+using HarmonyLib;
 
 
 
@@ -54,13 +55,13 @@ namespace CustomDverger
         }
 
 
-        //  [HarmonyLib.HarmonyPatch(typeof(ZNetScene), "Awake")]
-        //  [HarmonyLib.HarmonyPostfix]
-        // static void PrefabPostfix(ref ZNetScene __instance)
-        // {
-        //   GameObject wishbonePrefab = __instance.GetPrefab("Wishbone");
-        // CustomSlotManager.ApplyCustomSlotItem(wishbonePrefab, "wishbone");
-        //}
+          [HarmonyLib.HarmonyPatch(typeof(ZNetScene), "Awake")]
+          [HarmonyLib.HarmonyPostfix]
+         static void PrefabPostfix(ref ZNetScene __instance)
+         {
+           GameObject facePrefab = __instance.GetPrefab("$customdvergeryellowearly");
+           CustomSlotManager.ApplyCustomSlotItem(facePrefab, "face");
+         }
 
         ///I give up on custom slots
 
@@ -68,7 +69,7 @@ namespace CustomDverger
         private void LoadYellowE()
         {
             var yellowefab = dvergers.LoadAsset<GameObject>("$customdvergeryellowearly");
-            //    CustomSlotManager.ApplyCustomSlotItem(blackfab, "wishbone");
+                CustomSlotManager.ApplyCustomSlotItem(yellowefab, "face");
             var yellowe = new CustomItem(yellowefab, fixReference: true,
                 new ItemConfig
                 {
