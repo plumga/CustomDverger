@@ -14,6 +14,8 @@ using Jotunn.Managers;
 using Jotunn.Entities;
 using Jotunn.Utils;
 using CustomSlotItemLib;
+using HarmonyLib;
+
 
 namespace CustomDverger
 {
