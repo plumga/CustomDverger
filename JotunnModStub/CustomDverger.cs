@@ -333,8 +333,11 @@ namespace CustomDverger
         [HarmonyPostfix]
         static void PrefabPostfix(ref ZNetScene __instance)
         {
-                GameObject dvergerYellow = __instance.GetPrefab("$customdvergerblackearly");
+                GameObject dvergerYellow = __instance.GetPrefab("$customdvergeryellowearly");
                 CustomSlotManager.ApplyCustomSlotItem(dvergerYellow, "Dverger");
+
+                GameObject dvergerblack = __instance.GetPrefab("$customdvergerblackearly");
+                CustomSlotManager.ApplyCustomSlotItem(dvergerblack, "Dverger");
             
         }
 
