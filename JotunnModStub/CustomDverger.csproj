@@ -116,7 +116,7 @@
     <Compile Include="SlotLib\ItemSlotLib.cs" />
     <Compile Include="SlotLib\Patches.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
-    <Compile Include="ItemSlotLib.cs" />
+    <Compile Include="CustomDverger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
