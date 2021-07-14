@@ -8,13 +8,12 @@ using System;
 using BepInEx;
 using UnityEngine;
 using BepInEx.Configuration;
+using HarmonyLib;
 using Jotunn.Configs;
 using Jotunn.Managers;
 using Jotunn.Entities;
 using Jotunn.Utils;
-//using CustomSlotItemLib;
-
-
+using CustomSlotItemLib;
 
 namespace CustomDverger
 {
@@ -43,20 +42,29 @@ namespace CustomDverger
             LoadRed();
             LoadWhite();
             LoadYellow();
-
+            Harmony.CreateAndPatchAll(typeof(CustomDverger).Assembly);
 
         }
 
+        private void CreateInventory(GameObject go, int height, int width)
+        {
+            if (go.GetComponent<Container>() != null) return;
+            var cn = go.AddComponent<Container>();
+            cn.m_height = height;
+            cn.m_width = width;
+            //this might not work I dont know for sure about the rootobjoverride
+            cn.m_rootObjectOverride = Player.m_localPlayer.gameObject.GetComponent<ZNetView>();
+        }
 
         private void Update()
         {
             if (Player.m_localPlayer == null || ZNetScene.instance == null )
                 return;
             if (Player.m_localPlayer.IsItemEquiped(ZNetScene.instance.GetPrefab("dvergername").gameObject
-                .GetComponent<ItemDrop>().m_itemData));
+                .GetComponent<ItemDrop>().m_itemData))
             {
                 var light = ZNetScene.instance.GetPrefab("dvergernamegoeshere").GetComponent<Light>();
-                String.Contais("")
+                
                 light.color = Color.green;//POC to show you can alter color on the sceneupdate when the item is euqipped
                 light.useColorTemperature = true;
                 light.colorTemperature = 123;
@@ -281,7 +289,7 @@ namespace CustomDverger
 
         private void LoadYellow()
         {
-            //     CustomSlotManager.ApplyCustomSlotItem(yellowfab, "$customdvergeryellow");
+            //     
             var yellow = new CustomItem(dvergers.LoadAsset<GameObject>("$customdvergeryellow"), fixReference: true,
                 new ItemConfig
                 {
@@ -307,25 +315,33 @@ namespace CustomDverger
         //note to self
 
         /// you will care about copying basically this chunk of code right here 
-       // private void Bird_of_Paradise_Plant() //this is the function name you need to change it 
-       // {
-       //     var Bird_of_Paradise_Thing = dvergers.LoadAsset<GameObject>("custompiece_birdofparadise"); //this defines the prefab name in your uniy project 
-           // you need to change planterthing and planter every time you copy this 
-      //      var Bird_of_Paradise = new CustomPiece(Bird_of_Paradise_Thing,
-      //          new PieceConfig
-      //          {
-      //              PieceTable = "_PlantitPieceTable",
-     //               AllowedInDungeons = false,
-     //               Requirements = new[]
-      //              {
-       //                 new RequirementConfig {Item = "Wood", Amount = 2, Recover = true}
+        // private void Bird_of_Paradise_Plant() //this is the function name you need to change it 
+        // {
+        //     var Bird_of_Paradise_Thing = dvergers.LoadAsset<GameObject>("custompiece_birdofparadise"); //this defines the prefab name in your uniy project 
+        // you need to change planterthing and planter every time you copy this 
+        //      var Bird_of_Paradise = new CustomPiece(Bird_of_Paradise_Thing,
+        //          new PieceConfig
+        //          {
+        //              PieceTable = "_PlantitPieceTable",
+        //               AllowedInDungeons = false,
+        //               Requirements = new[]
+        //              {
+        //                 new RequirementConfig {Item = "Wood", Amount = 2, Recover = true}
         //            }
-       //         });
-       //     PieceManager.Instance.AddPiece(Bird_of_Paradise);
-     //   }
+        //         });
+        //     PieceManager.Instance.AddPiece(Bird_of_Paradise);
+        //   }
 
 
-        
+        [HarmonyPatch(typeof(ZNetScene), "Awake")]
+        static private class Prefabpatch
+        {
+            static void Postfix(ref ZNetScene __instance)
+            {
+                GameObject dvergerYellow = __instance.GetPrefab("$customdvergeryellow");
+                CustomSlotManager.ApplyCustomSlotItem(dvergerYellow, "$customdvergeryellow");
+            }
+        }
 
         // to here 
 
