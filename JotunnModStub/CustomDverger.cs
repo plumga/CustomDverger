@@ -25,7 +25,7 @@ namespace CustomDverger
     {
         public const string PluginGUID = "com.plumga.CustomDverger";
         public const string PluginName = "CustomDverger";
-        public const string PluginVersion = "0.0.2";
+        public const string PluginVersion = "0.0.3";
         private AssetBundle dvergers;
 
 
@@ -44,7 +44,7 @@ namespace CustomDverger
             LoadRed();
             LoadWhite();
             LoadYellow();
-            Harmony.CreateAndPatchAll(typeof(ItemSlotLib).Assembly);
+           // Harmony.CreateAndPatchAll(typeof(ItemSlotLib).Assembly);
 
         }
 
@@ -300,27 +300,27 @@ namespace CustomDverger
         //   }
 
 
-        [HarmonyPatch(typeof(ZNetScene), "Awake")]
-        [HarmonyPostfix]
-        static void PrefabPostfix(ref ZNetScene __instance)
-        {
-                GameObject dvergerYellow = __instance.GetPrefab("$customdvergeryellowearly");
-            ItemSlotLib.ApplyCustomSlotItem(dvergerYellow, "Dverger");
+     //   [HarmonyPatch(typeof(ZNetScene), "Awake")]
+     //   [HarmonyPostfix]
+      //  static void PrefabPostfix(ref ZNetScene __instance)
+      //  {
+        //        GameObject dvergerYellow = __instance.GetPrefab("$customdvergeryellowearly");
+          //  ItemSlotLib.ApplyCustomSlotItem(dvergerYellow, "Dverger");
 
-                GameObject dvergerblack = __instance.GetPrefab("$customdvergerblackearly");
-            ItemSlotLib.ApplyCustomSlotItem(dvergerblack, "Dverger");
+            //    GameObject dvergerblack = __instance.GetPrefab("$customdvergerblackearly");
+     //       ItemSlotLib.ApplyCustomSlotItem(dvergerblack, "Dverger");
             
-                GameObject dvergerred = __instance.GetPrefab("$customdvergerred");
-            ItemSlotLib.ApplyCustomSlotItem(dvergerred, "Dverger");
+       //         GameObject dvergerred = __instance.GetPrefab("$customdvergerred");
+     //       ItemSlotLib.ApplyCustomSlotItem(dvergerred, "Dverger");
             
-                GameObject dvergerwhite= __instance.GetPrefab("$customdvergerwhite");
-            ItemSlotLib.ApplyCustomSlotItem(dvergerwhite, "Dverger");
+       //         GameObject dvergerwhite= __instance.GetPrefab("$customdvergerwhite");
+         //   ItemSlotLib.ApplyCustomSlotItem(dvergerwhite, "Dverger");
             
-                GameObject dvergerpurple = __instance.GetPrefab("$customdvergerpurple");
-            ItemSlotLib.ApplyCustomSlotItem(dvergerpurple, "Dverger");
+       //         GameObject dvergerpurple = __instance.GetPrefab("$customdvergerpurple");
+      //      ItemSlotLib.ApplyCustomSlotItem(dvergerpurple, "Dverger");
     
 
-        }
+     //   }
 
         // to here 
 
